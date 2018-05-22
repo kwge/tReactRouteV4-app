@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 import {
@@ -16,13 +15,35 @@ const Home = () => (
 
 const About = () => (
   <div>
-    <h2>About</h2>
+    <h2>About</h2> 
   </div>
 )
 
-const Topics = () => (
+// match.params.topicID == props-v-state
+// match.path == '/topics/:topicId'
+// match.url == "/topics/props-v-state"
+
+const Topic = ({match}) => console.log(match)||(
+  <div>
+    <h2>Topic is: {match.params.topicId}</h2> 
+  </div>
+)
+
+
+const Topics = ({match}) => (
   <div>
     <h2>Topics</h2>
+    <ul>
+      <li><Link to={`${match.url}/rendering`}>Rendering with React</Link></li>
+      <li><Link to={`${match.url}/components`}>Components</Link></li>
+      <li><Link to={`${match.url}/prop-v-state`}>Props vs States</Link></li>
+    </ul>
+
+    <Route path="/topics/:topicId" component={Topic}/>
+    <Route exact path="/topics/" render={() => (            // Inline render()
+      <h3> Please select a topic</h3>
+     )} />
+    {/* <Route path="/topics/prop-v-state" component={Topic}/> */}
   </div>
 )
 
